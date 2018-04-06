@@ -5,15 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 
 import sudtechnologies.slidingmenu.lib.SlidingMenu;
 
@@ -22,17 +21,17 @@ public class MainActivity extends AppCompatActivity
 
     private SlidingMenu menu;
     private int temp = 0;
-    RelativeLayout relativeContent;
+    private DrawerLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
+        container = findViewById(R.id.container);
         menu = new SlidingMenu(this);
-        initMenuLateral(menu);
+        initMenuLateral();
         effectMenuLateral();
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -43,10 +42,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initMenuLateral(SlidingMenu menu) {
+    private void initMenuLateral() {
         LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View menulayer = inflater.inflate(R.layout.menu_main, null);
-        menu.setMenu(menulayer);
+        View menuLayer = inflater.inflate(R.layout.menu_main, null);
+        menu.setMenu(menuLayer);
     }
 
     private void effectMenuLateral() {
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         final int numbase = dpToPx(this, 60);
         menu.setOnChangeScroll(pos -> {
             temp = (int) (-1 * pos * numbase);
-            relativeContent.setPadding(0, temp, 0, temp);
+            container.setPadding(0, temp, 0, temp);
         });
     }
 
@@ -82,21 +81,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -105,27 +99,21 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()){
+            case R.id.nav_camera:
+                break;
+            case R.id.nav_gallery:
+                break;
+            case R.id.nav_manage:
+                break;
+            case R.id.nav_share:
+                break;
+            case R.id.nav_send:
+                break;
         }
 
         menu.toggle();
-
-        /*DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
         return true;
     }
 }
